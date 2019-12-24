@@ -1,10 +1,9 @@
 import Link from 'next/link'
 
 const UserList = ({ data, loading, error }) => {
-  if (error) return <div>Error {error}</div>;
   if (loading) return <div>Loading...</div>;
-  if (data && data.search) {
-    console.log(data)
+  if (data && data.search && data.search.userCount !== 0) {
+    console.log('UserList', data)
     // const areMorePosts = data.viewer.repositories.edges.length < data._allPostsMeta.count;
     return (
       <div>
@@ -29,7 +28,7 @@ const UserList = ({ data, loading, error }) => {
       </div>
     );
   }
-  
+  return <div>Start typing to find a user...</div>; 
 }
 
 // function loadMorePosts(data, fetchMore) {

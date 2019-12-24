@@ -1,26 +1,11 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import appConfig from "../../lib/config";
 
 const POSTS_PER_PAGE = 10;
 
-const GET_POSTS = gql`
-    query { 
-        viewer {
-            repositories(first: 10) {
-                edges {
-                    node {
-                        name
-                        id
-                        url
-                    }
-                }
-            }
-        }
-    }
-`;
-
 function RepoList() {
-  const { loading, error, data, fetchMore } = useQuery(GET_POSTS, {
+  const { loading, error, data, fetchMore } = useQuery(appConfig.GET_REPO_LIST, {
     variables: { skip: 0, first: POSTS_PER_PAGE }
   });
 
