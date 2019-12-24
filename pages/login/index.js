@@ -1,18 +1,18 @@
-import react, { useState } from 'react'
-import withData from "../../lib/apollo";
+import React, { useState } from 'react'
 import Router, { useRouter } from 'next/router'
+import withData from '../../lib/apollo'
 
-const Login = (props, history) => {
+const Login = () => {
     const router = useRouter()
     const [token, setToken] = useState('')
-    
-    const handleSubmit = e => {
+
+    const handleSubmit = (e) => {
         e.preventDefault()
 
         localStorage.setItem('pat_token', token)
 
         Router.push({
-            pathname: '/'
+            pathname: '/',
         })
     }
 
@@ -21,8 +21,8 @@ const Login = (props, history) => {
         <div>
             <h2>Insert your Github Personal access tokens</h2>
             {router.query.error && <p>There has been an error, please try again.</p>}
-            <form onSubmit={handleSubmit} >
-                <input type="text" onChange={e => setToken(e.target.value)} />
+            <form onSubmit={handleSubmit}>
+                <input type="text" onChange={(e) => setToken(e.target.value)} />
             </form>
         </div>
     )

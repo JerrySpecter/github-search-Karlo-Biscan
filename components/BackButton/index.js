@@ -1,12 +1,13 @@
+import React from 'react'
 import Router from 'next/router'
 
 export default function BackButton() {
-    const handleClick = e => {
+    const handleClick = (e) => {
         e.preventDefault()
 
         Router.back()
     }
     return (
-        <a href="#" onClick={handleClick}> &lt; Go Back</a>
+        <button type="button" href="#" onClick={handleClick}> &lt; Go Back</button>
     )
 }

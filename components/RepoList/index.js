@@ -1,39 +1,38 @@
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import appConfig from "../../lib/config";
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import appConfig from '../../lib/config'
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 10
 
 function RepoList() {
-  const { loading, error, data, fetchMore } = useQuery(appConfig.GET_REPO_LIST, {
-    variables: { skip: 0, first: POSTS_PER_PAGE }
-  });
+    const { data } = useQuery(appConfig.GET_REPO_LIST, {
+        variables: { skip: 0, first: POSTS_PER_PAGE },
+    })
 
-  if (data && data.viewer) {
-    console.log(data)
-    // const areMorePosts = data.viewer.repositories.edges.length < data._allPostsMeta.count;
-    return (
-      <div>
-        <ul data-testid="RepoList">
-          {data.viewer.repositories.edges.map((repository, index) => (
-            <li key={repository.node.id} data-testid="RepoListItem">
-              <div>
-                <a href={repository.node.url}>{repository.node.name}</a>
-              </div>
-            </li>
-          ))}
-        </ul>
-        {/* {areMorePosts ? (
+    if (data && data.viewer) {
+        // const areMorePosts = data.viewer.repositories.edges.length < data._allPostsMeta.count;
+        return (
+            <div>
+                <ul data-testid="RepoList">
+                    {data.viewer.repositories.edges.map((repository) => (
+                        <li key={repository.node.id} data-testid="RepoListItem">
+                            <div>
+                                <a href={repository.node.url}>{repository.node.name}</a>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                {/* {areMorePosts ? (
           <button onClick={() => loadMorePosts(data, fetchMore)}>
             {loading ? "Loading..." : "Show More"}
           </button>
         ) : (
           ""
         )} */}
-      </div>
-    );
-  }
-  return <div>Loading...</div>;
+            </div>
+        )
+    }
+    return <div>Loading...</div>
 }
 
 // function loadMorePosts(data, fetchMore) {
@@ -53,4 +52,4 @@ function RepoList() {
 //   });
 // }
 
-export default RepoList;
+export default RepoList
