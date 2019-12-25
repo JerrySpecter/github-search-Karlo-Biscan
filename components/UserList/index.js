@@ -2,59 +2,64 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Button from '../StyledComponents/Button'
+import {
+    Notice,
+    List,
+    ListItem,
+    AvatarWrapper,
+    Avatar,
+    ListItemWrapper,
+    ListItemHeader,
+    ListItemDescription,
+    ListItemMeta
+} from './styles'
 
-const UserList = ({ data, loading, error }) => {
-    if (loading) return <div>Loading...</div>
-    if (data && data.search && data.search.userCount !== 0) {
-        console.log('UserList', data)
-        // const areMorePosts = data.viewer.repositories.edges.length < data._allPostsMeta.count;
+
+const UserList = ({ data, loading }) => {
+    const { search } = data || {}
+    const { userCount, edges } = search || {}
+
+    if (data && search  && userCount !== 0) {
         return (
-            <div>
-                <ul data-testid="UserList">
-                    {data.search.edges.map((user, index) => (
-                        <li key={user.node.id} data-testid="UserListItem">
-                            <div>
-                                <Link href={`/profile/${user.node.login}`}>
-                                    <a>{user.node.login}</a>
+            <List data-testid="UserList">
+                {edges.map(({ node }, index) => (
+                    <ListItem key={node.id}>
+                        <AvatarWrapper>
+                            <Avatar src={node.avatarUrl} alt={node.name} />
+                        </AvatarWrapper>
+                        <ListItemWrapper>
+                            <ListItemHeader>
+                                <Link href={`/profile/${node.login}`}>
+                                    <a>{node.name} ({node.login})</a>
                                 </Link>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                {/* {areMorePosts ? (
-          <button onClick={() => loadMorePosts(data, fetchMore)}>
-            {loading ? "Loading..." : "Show More"}
-          </button>
-        ) : (
-          ""
-        )} */}
-            </div>
+                            </ListItemHeader>
+                            <ListItemDescription>
+                                {node.bio}
+                            </ListItemDescription>
+                            <ListItemMeta>
+                                <span>{node.location}</span>
+                                <span>{node.email}</span>
+                            </ListItemMeta>
+                        </ListItemWrapper>
+                        <Button type="button" secondary textSmall href={node.url}>View on Github</Button>
+                    </ListItem>
+                ))}
+            </List>
         )
     }
-    return <div>Start typing to find a user...</div>
+
+    if (loading) return <Notice>Loading...</Notice>
+
+    return <Notice>List is empty</Notice>
 }
 
 UserList.propTypes = {
     data: PropTypes.shape({}),
+    search: PropTypes.shape({}),
+    userCount: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.shape({}),
 }
-
-// function loadMorePosts(data, fetchMore) {
-//   return fetchMore({
-//     variables: {
-//       skip: data.allPosts.length
-//     },
-//     updateQuery: (previousResult, { fetchMoreResult }) => {
-//       if (!fetchMoreResult) {
-//         return previousResult;
-//       }
-//       return Object.assign({}, previousResult, {
-//         // Append the new posts results to the old one
-//         allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts]
-//       });
-//     }
-//   });
-// }
 
 export default UserList

@@ -1,55 +1,61 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import appConfig from '../../lib/config'
+import PropTypes from 'prop-types'
+import Link from 'next/link'
+import Button from '../StyledComponents/Button'
+import {
+    Notice,
+    List,
+    ListItem,
+    ListItemWrapper,
+    ListItemHeader,
+    ListItemDescription,
+    ListItemMeta,
+    ListItemInfo,
+    LastUpdated
+} from './styles'
 
-const POSTS_PER_PAGE = 10
 
-function RepoList() {
-    const { data } = useQuery(appConfig.GET_REPO_LIST, {
-        variables: { skip: 0, first: POSTS_PER_PAGE },
-    })
+const RepoList = ({ repositories, loading }) => {
+    const { edges } = repositories || {}
+    if (loading) return <Notice>Loading...</Notice>
 
-    if (data && data.viewer) {
-        // const areMorePosts = data.viewer.repositories.edges.length < data._allPostsMeta.count;
+    if (repositories) {
         return (
-            <div>
-                <ul data-testid="RepoList">
-                    {data.viewer.repositories.edges.map((repository) => (
-                        <li key={repository.node.id} data-testid="RepoListItem">
-                            <div>
-                                <a href={repository.node.url}>{repository.node.name}</a>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                {/* {areMorePosts ? (
-          <button onClick={() => loadMorePosts(data, fetchMore)}>
-            {loading ? "Loading..." : "Show More"}
-          </button>
-        ) : (
-          ""
-        )} */}
-            </div>
+            <List>
+                {edges.map(({ node }, index) => (
+                    <ListItem key={node.id}>
+                        <ListItemWrapper>
+                            <ListItemHeader>
+                                {node.name}
+                            </ListItemHeader>
+                            <ListItemDescription>
+                                {node.description}
+                            </ListItemDescription>
+                            <ListItemInfo>
+                                <ListItemMeta>
+                                    {node.languages.edges.map((langNode, index) => (
+                                        langNode && <span key={langNode.node.id}>{index < node.languages.edges.length - 1 ? `${langNode.node.name}, ` : langNode.node.name}</span>
+                                    ))}
+                                </ListItemMeta>
+                            </ListItemInfo>
+                        </ListItemWrapper>
+                        <Button type="button" secondary textSmall href={node.url}>View on Github</Button>
+                    </ListItem>
+                ))}
+            </List>
         )
     }
-    return <div>Loading...</div>
+
+    return <Notice>List is empty</Notice>
 }
 
-// function loadMorePosts(data, fetchMore) {
-//   return fetchMore({
-//     variables: {
-//       skip: data.allPosts.length
-//     },
-//     updateQuery: (previousResult, { fetchMoreResult }) => {
-//       if (!fetchMoreResult) {
-//         return previousResult;
-//       }
-//       return Object.assign({}, previousResult, {
-//         // Append the new posts results to the old one
-//         allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts]
-//       });
-//     }
-//   });
-// }
+RepoList.propTypes = {
+    data: PropTypes.shape({}),
+    search: PropTypes.shape({}),
+    userCount: PropTypes.number,
+    loading: PropTypes.bool,
+    error: PropTypes.shape({}),
+}
 
 export default RepoList
