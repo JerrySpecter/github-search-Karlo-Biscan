@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from '@emotion/styled'
 
 // Create a <Wrapper> react component that renders a <section>
 // with some padding and a papayawhip background

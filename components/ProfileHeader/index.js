@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '../StyledComponents/Button'
 import {
     ProfileHeaderWrapper,
@@ -32,11 +33,15 @@ const ProfileHeader = ({ user }) => {
                         {user.location && <span>{user.location}</span>}
                         {user.email && <span>{user.email}</span>}
                     </UserInfo>
-                    <Button type="button" href={user.url} secondary>View on Github</Button>
+                    <Button as="a" type="button" href={user.url} secondary>View on Github</Button>
                 </UserMeta>
             </ProfileHeaderContent>
         </ProfileHeaderWrapper>
     )
+}
+
+ProfileHeader.propTypes = {
+    user: PropTypes.shape({})
 }
 
 export default ProfileHeader

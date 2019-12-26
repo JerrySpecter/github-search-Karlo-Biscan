@@ -4,8 +4,8 @@ import withData from '../../lib/apollo'
 import Container from '../../components/StyledComponents/Container'
 import Title from '../../components/StyledComponents/Title'
 import Button from '../../components/StyledComponents/Button'
-import styled from "@emotion/styled";
-import { Global, css } from "@emotion/core"
+import styled from '@emotion/styled'
+import { Global } from '@emotion/core'
 import { GlobalStyles } from '../../lib/styles'
 
 const LoginFormWrapper = styled.div`

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
-import withData from "../../lib/apollo";
-import { GET_PROFILE, REPOS_PER_LOAD, repoSortingData } from "../../lib/config";
-import { useQuery } from "@apollo/react-hooks";
+import withData from '../../lib/apollo'
+import { GET_PROFILE, REPOS_PER_LOAD, repoSortingData } from '../../lib/config'
+import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import Header from '../../components/Header/index'
 import Footer from '../../components/Footer/index'
@@ -15,7 +15,7 @@ import Container from '../../components/StyledComponents/Container'
 import Title from '../../components/StyledComponents/Title'
 import { GlobalStyles } from '../../lib/styles'
 import onFetchMore from '../../lib/fetchMore'
-import { Global } from "@emotion/core"
+import { Global } from '@emotion/core'
 import {
     ProfileStateMsg,
     RepoListHeader,
@@ -26,7 +26,7 @@ import {
 } from './styles'
 
 
-const Profile = (props) => {
+const Profile = () => {
     const [areMorePosts, setAreMorePosts] = useState(false)
     const [currentCount, setCurrentCount] = useState(REPOS_PER_LOAD)
     const [currentSorting, setCurrentSorting] = useState(repoSortingData[0])
@@ -47,7 +47,7 @@ const Profile = (props) => {
 
     const { loading, error, data, fetchMore } = useQuery(GET_PROFILE, {
         variables
-    });
+    })
 
     const { user } = data || {}
     const { repositories } = user || {}
@@ -66,7 +66,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         const onCompleted = (completedData) => {
-            console.log(completedData)
             const repoCount = completedData ? completedData.user.repositories.totalCount : 0
 
             if (completedData) {
@@ -76,7 +75,6 @@ const Profile = (props) => {
         }
 
         const onError = () => {
-            console.log('onError')
             Router.push({
                 pathname: '/login',
                 query: {
@@ -104,11 +102,13 @@ const Profile = (props) => {
                     <Header>
                         <BackButton />
                     </Header>
+
                     <Section bgColor="#f7f7f7">
                         <Container>
                             <ProfileHeader user={user} />
                         </Container>
                     </Section>
+
                     <Container>
                         <RepoListHeader>
                             <Title>Repositories <TotalRepoCount>{repositories.totalCount}</TotalRepoCount></Title>
@@ -126,14 +126,16 @@ const Profile = (props) => {
                             </SortingWrapper>
                         </RepoListHeader>
                         <RepoList repositories={repositories} />
+
                         {areMorePosts ? (
-                            <Button centered onClick={e => onFetchMore(fetchMore, currentCount, REPOS_PER_LOAD)}>
-                                {loading ? "Loading..." : "Show More"}
+                            <Button centered onClick={() => onFetchMore(fetchMore, currentCount, REPOS_PER_LOAD)}>
+                                {loading ? 'Loading...' : 'Show More'}
                             </Button>
-                            ) : (
-                            ""
+                        ) : (
+                            ''
                         )}
                     </Container>
+
                     <Footer />
                 </>
             }
@@ -142,7 +144,7 @@ const Profile = (props) => {
             
             {error && <ProfileStateMsg>Error {error}</ProfileStateMsg>}
         </>
-    );
+    )
 }
 
 export default withData(Profile)

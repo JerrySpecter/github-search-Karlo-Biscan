@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 // Create a <Wrapper> react component that renders a <section>
 // with some padding and a papayawhip background
-export default styled("h2")`
+export default styled('h2')`
     font-family: Arial;
     text-transform: uppercase;
     font-size: ${props => {
@@ -14,4 +14,4 @@ export default styled("h2")`
         if (props.centered) return 'center'
         if (props.right) return 'right'
     }};
-`;
+`

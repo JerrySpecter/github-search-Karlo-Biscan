@@ -28,7 +28,7 @@
 ---
 
 ## Introduction
-This is Github search app that uses Githubs GraphQL API. The main purpose of the app is to do basic search of registered users and their repositories. 
+This is Github search app that uses Githubs GraphQL API. The main purpose of the app is to do basic search of registered users and their repositories.
  
 ---
 

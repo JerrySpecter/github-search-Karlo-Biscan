@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 // Create a <Wrapper> react component that renders a <section>
 // with some padding and a papayawhip background
@@ -14,6 +14,7 @@ const Button = styled.button`
     width: ${props =>
         props.full ? '100%' : 'auto' };
     appearence: none;
+    text-decoration: none;
     font-size: ${props => {
         if (props.textSmall) return '12px'
         if (props.textMedium) return '14px'
@@ -29,11 +30,11 @@ const Button = styled.button`
     &:hover,
     &:focus {
         background-color: ${props =>
-            props.secondary ? 'transparent' : '#2ebc4e' };
+        props.secondary ? 'transparent' : '#2ebc4e' };
         color: ${props =>
-            props.secondary ? '#2ebc4e' : 'white'};
+        props.secondary ? '#2ebc4e' : 'white'};
         border: 1px solid ${props =>
-            props.secondary ? '#2ebc4e' : 'transparent' };
+        props.secondary ? '#2ebc4e' : 'transparent' };
     }
 `
 

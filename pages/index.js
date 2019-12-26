@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react'
 import { useLazyQuery } from '@apollo/react-hooks'
 import Router from 'next/router'
@@ -14,7 +12,7 @@ import Container from '../components/StyledComponents/Container'
 import Title from '../components/StyledComponents/Title'
 import Button from '../components/StyledComponents/Button'
 import Section from '../components/StyledComponents/Section'
-import { Global, css } from "@emotion/core"
+import { Global } from '@emotion/core'
 import {
     SearchField,
     SearchWrapper,
@@ -54,7 +52,6 @@ const Search = () => {
 
     useEffect(() => {
         const onCompleted = (completedData) => {
-            console.log('Completed')
             const localData = completedData ? JSON.stringify(completedData) : sessionStorage.getItem('last_search_data')
 
             sessionStorage.setItem('last_search_data', localData)
@@ -121,11 +118,11 @@ const Search = () => {
                 <UserList data={lastSearchData} loading={loading} />
 
                 {areMorePosts ? (
-                    <Button centered onClick={e => onFetchMore(fetchMore, currentCount, USERS_PER_LOAD)}>
-                        {loading ? "Loading..." : "Show More"}
+                    <Button centered onClick={() => onFetchMore(fetchMore, currentCount, USERS_PER_LOAD)}>
+                        {loading ? 'Loading...' : 'Show More'}
                     </Button>
-                    ) : (
-                    ""
+                ) : (
+                    ''
                 )}
             </Container>
             <Footer />

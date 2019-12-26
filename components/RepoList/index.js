@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import Button from '../StyledComponents/Button'
 import {
     Notice,
@@ -11,8 +10,7 @@ import {
     ListItemHeader,
     ListItemDescription,
     ListItemMeta,
-    ListItemInfo,
-    LastUpdated
+    ListItemInfo
 } from './styles'
 
 
@@ -23,7 +21,7 @@ const RepoList = ({ repositories, loading }) => {
     if (repositories) {
         return (
             <List>
-                {edges.map(({ node }, index) => (
+                {edges.map(({ node }) => (
                     <ListItem key={node.id}>
                         <ListItemWrapper>
                             <ListItemHeader>
@@ -40,7 +38,7 @@ const RepoList = ({ repositories, loading }) => {
                                 </ListItemMeta>
                             </ListItemInfo>
                         </ListItemWrapper>
-                        <Button type="button" secondary textSmall href={node.url}>View on Github</Button>
+                        <Button as="a" target="_blank" secondary textSmall href={node.url}>View on Github</Button>
                     </ListItem>
                 ))}
             </List>
@@ -56,6 +54,7 @@ RepoList.propTypes = {
     userCount: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.shape({}),
+    repositories: PropTypes.shape({}),
 }
 
 export default RepoList

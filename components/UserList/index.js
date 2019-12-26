@@ -23,7 +23,7 @@ const UserList = ({ data, loading }) => {
     if (data && search  && userCount !== 0) {
         return (
             <List data-testid="UserList">
-                {edges.map(({ node }, index) => (
+                {edges.map(({ node }) => (
                     <ListItem key={node.id}>
                         <AvatarWrapper>
                             <Avatar src={node.avatarUrl} alt={node.name} />

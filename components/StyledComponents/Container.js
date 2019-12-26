@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 
 const LoginFormWrapper = css`

@@ -4,14 +4,17 @@
         "es6": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
@@ -19,11 +22,30 @@
         "react"
     ],
     "rules": {
-        "semi": ["warn", "never"],
-        "quotes": ["error", "single"],
-        "indent": ["warn", 4],
-        "react/jsx-indent-props": "off",
-        "react/jsx-indent": "off",
-        "react/jsx-filename-extension": "off"
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/label-has-for": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-closing-bracket-location": [
+            1, {"selfClosing": "line-aligned", "nonEmpty": "after-props"}
+        ]
     }
 }

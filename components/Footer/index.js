@@ -16,7 +16,7 @@ const FooterElement = styled.footer`
     }
 `
 
-const Footer = (props) => {
+const Footer = () => {
     return (
         <FooterElement>
             <Container>
